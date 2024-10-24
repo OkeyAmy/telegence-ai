@@ -11,6 +11,8 @@ services:
       - .:/app
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    env_file:
+      - .env
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
@@ -18,3 +20,9 @@ services:
       timeout: 10s
       retries: 3
       start_period: 5s
+
+  # Add more services here if needed, such as a database or cache
+
+networks:
+  default:
+    name: telegence-network

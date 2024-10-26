@@ -2,8 +2,6 @@
 Message templates and types for generating AI responses in the Message Response System.
 """
 
-# @Codebase
-
 from enum import Enum
 from langchain.prompts import PromptTemplate
 

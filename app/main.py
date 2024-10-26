@@ -30,7 +30,7 @@ async def greeting():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/message", response_model=Response)
+@app.post("/write_message", response_model=Response)
 async def select_message(request: MessageRequest):
     """Generate an AI response for a user message."""
     try:
@@ -39,7 +39,7 @@ async def select_message(request: MessageRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/email_responder", response_model=Response)
+@app.post("/respond_message", response_model=Response)
 async def respond_to_email(request: EmailRequest):
     """Generate an AI response for an email."""
     try:

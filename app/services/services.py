@@ -3,7 +3,6 @@ This module contains the AIService class which handles interactions with the AI 
 It includes methods for generating greetings, responses, and email replies.
 """
 
-# @Codebase
 
 from typing import List, Optional
 import google.generativeai as genai

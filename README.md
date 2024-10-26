@@ -8,12 +8,14 @@ A modern AI-powered message response system built with FastAPI and Google's Gene
 
 ## 🚀 Features
 
-- 🤖 AI-powered response generation using Google's Generative AI (gemini-1.5-flash model)
-- 📝 Support for formal, casual, and custom message styles
-- 📧 Smart email response generation
-- 🔄 Platform integration (WhatsApp, LinkedIn, Slack, Gmail)
-- 🛡️ Robust error handling and input validation
-- 🔍 Interactive API documentation
+- 🤖 **AI-powered response generation** using Google's Generative AI (gemini-1.5-flash model)
+- 📝 **Support for formal, casual, and custom message styles**
+- 📧 **Smart email response generation**
+- ✉️ **Message writing capabilities**: Automatically generate messages based on user input, tailored to various contexts and platforms.
+- 🔄 **Platform integration** (WhatsApp, LinkedIn, Slack, Gmail)
+- 🔄 **Message response generation**: Respond to incoming messages with contextually relevant replies.
+- 🛡️ **Robust error handling and input validation**
+- 🔍 **Interactive API documentation** available via Swagger UI and ReDoc
 
 ## 📋 Prerequisites
 
@@ -81,30 +83,51 @@ http://localhost:8000
 
 ### Available Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Welcome message |
-| POST | `/greet_user` | Generate AI greeting |
-| POST | `/message` | Generate emails      for user |
-| POST | `/email_responder` | Generate email response |
+| Method | Endpoint          | Description                               |
+|--------|-------------------|-------------------------------------------|
+| GET    | `/`                | Welcome message                          |
+| POST   | `/greet_user`     | Generate AI greeting                     |
+| POST   | `/write_message`   | Generate AI response for user messages   |
+| POST   | `/respond_message` | Generate AI response for incoming messages |
 
-### Example Request
+### Example Request for Writing a Message
 
 ```json
-POST /message
+POST /write_message
 {
-    "type": "formal",
-    "user_message": "Meeting request for project discussion",
+    "type": "casual",
+    "user_message": "Can you help me with my project update?",
     "email": "user@example.com"
 }
 ```
 
-### Example Response
+### Example Response for Writing a Message
 
 ```json
 {
-    "response": "Subject: Meeting Request - Project [Project Name] Discussion\n\nDear...",
-    "email": "user@example.com"
+  "email": "user@example.com",
+  "response": "Subject: Need a Hand with My Project Update! 🤘\n\nHey there! 👋\n\nCould you lend a helping hand with my project update? I'm feeling a little stuck and could really use some of your awesome AI brainpower. 😊\n\nThanks a bunch!"
+}
+```
+
+### Example Request for Responding to a Message
+
+```json
+POST /respond_message
+{
+  "email_address": "user@example.com",
+  "email": "What are the next steps for the project Peter?",
+  "prompt": "We will start with onboarding",
+  "type": "formal"
+}
+```
+
+### Example Response for Responding to a Message
+
+```json
+{
+  "email": "user@example.com",
+  "response": "Hi [Sender Name],\n\nThe next steps for the project will be to start with onboarding. \n\nBest, \nPeter"
 }
 ```
 
@@ -120,29 +143,24 @@ The API returns structured error responses:
 
 ```json
 {
-    "detail": "Error message description",
-    "status_code": 400,
-    "error_type": "ValidationError"
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "type"
+      ],
+      "msg": "Field required",
+      "input": {
+        "email_address": "user@example.com",
+        "email": "What are the next steps for the project?",
+        "prompt": "We will start with onboarding"
+      }
+    }
+  ]
 }
 ```
 
-## 🛠️ Development
-
-1. **Install development dependencies**
-   ```bash
-   pip install -r requirements-dev.txt
-   ```
-
-2. **Run tests**
-   ```bash
-   pytest
-   ```
-
-3. **Check code style**
-   ```bash
-   flake8
-   black .
-   ```
 
 ## 🤝 Contributing
 
